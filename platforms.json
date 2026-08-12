@@ -27,8 +27,8 @@
       "name": "Yahoo!広告",
       "category": "国内",
       "sources": [
-        { "type": "html", "url": "https://ads-help.yahoo.co.jp/yahooads/ss/articledetail?lan=ja&aid=50246", "selector": "main" },
-        { "type": "html", "url": "https://marketing.yahoo.co.jp/news/", "selector": "main, .newsList, .p-newsList" }
+        { "type": "html", "url": "https://marketing.yahoo.co.jp/news/", "selector": "main, .newsList, .p-newsList" },
+        { "type": "html", "url": "https://ads-help.yahoo.co.jp/yahooads/guideline", "selector": "main" }
       ]
     },
     {
