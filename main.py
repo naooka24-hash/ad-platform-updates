@@ -352,34 +352,31 @@ def parse_json_safely(raw):
     raise ValueError("JSON解析失敗: " + raw[:200])
 
 
-def analyze_updates(items):
-    """新着アイテムをLLMで整理・分類"""
-    if not items:
-        return []
-
+def analyze_batch(items, offset):
+    """1バッチ分をLLMで分析"""
     blocks = []
     for i, it in enumerate(items):
         blocks.append(
             "ID:" + str(i)
-            + "\nPLATFORM:" + it["platform"]
-            + "\nTITLE:" + it["title"][:200]
-            + "\nBODY:" + it["body"][:250]
+            + "\nP:" + it["platform"]
+            + "\nT:" + it["title"][:120]
+            + "\nB:" + it["body"][:120]
         )
     indexed = "\n\n".join(blocks)
 
     prompt = (
-        "以下は各広告プラットフォームの更新情報の候補一覧です。\n"
+        "以下は広告プラットフォームの更新情報の候補です。\n"
         "日本の広告運用担当者にとって意味のある更新だけを選び、日本語で要約してください。\n"
         + """
 # 出力形式
-以下のJSON形式のみを出力してください。前置きや説明は不要です。
+以下のJSON形式のみを出力してください。
 
 {
   "updates": [
     {
       "id": 元のID番号（整数）,
-      "headline": "日本語の見出し。25〜45文字。何が変わるかを明示",
-      "summary": "変更内容を2〜3文で具体的に。日付や数値があれば含める",
+      "headline": "日本語の見出し。25〜45文字",
+      "summary": "変更内容を2〜3文で具体的に",
       "impact": "運用担当者が取るべき対応を1文で",
       "severity": "critical | important | info",
       "type": "feature | deprecation | policy | product | api"
@@ -387,39 +384,32 @@ def analyze_updates(items):
   ]
 }
 
-# 含めるもの（重要）
+# 含めるもの
 - 管理画面の機能追加・変更・削除
 - 入札戦略、ターゲティング、フォーマットの変更
 - 広告ポリシー、審査基準の変更
 - API/SDKの仕様変更、バージョン廃止
 - 新しい広告プロダクト、配信面の発表
-- 計測、レポート機能の変更
 
 # 除外するもの
-- 単なる企業PR、受賞、イベント告知
-- 導入事例、インタビュー記事
-- 求人、採用情報
-- 決算、株価、人事
+- 企業PR、受賞、イベント告知、導入事例
+- 求人、決算、人事
 - ナビゲーションリンク、目次的な項目
-- 内容が不明瞭で判断できないもの
+- 内容が不明瞭なもの
 
-# severity の基準
-critical    : 対応しないと配信停止や不具合が起きる（廃止、必須移行、ポリシー違反）
-important   : 運用改善や設定見直しが必要（新機能、仕様変更）
-info        : 知っておくとよい（プロダクト発表、ベータ提供）
+# severity
+critical  : 対応しないと配信停止や不具合が起きる
+important : 運用改善や設定見直しが必要
+info      : 知っておくとよい
 
-# 記述ルール
-- headline は「〜が可能に」「〜を廃止」など動作を明示する
-- summary で「〜が発表されました」等の空虚な表現を避ける
-- impact は「〇月までに〇〇へ移行が必要」のように具体的に
-- 該当する更新がない場合は updates を空配列で返す
+# 該当がなければ updates を空配列で返すこと
 
-# 候補一覧
+# 候補
 """
         + indexed
     )
 
-    raw = call_llm(prompt, max_tokens=7000)
+    raw = call_llm(prompt, max_tokens=4000)
     data = parse_json_safely(raw)
     updates = data.get("updates", [])
 
@@ -447,9 +437,35 @@ info        : 知っておくとよい（プロダクト発表、ベータ提供
             "severity": sev,
             "type": str(u.get("type", "feature")).lower().strip(),
         })
-
-    print("[OK] 有効な更新: " + str(len(valid)) + "件")
     return valid
+
+
+def analyze_updates(items):
+    """バッチに分割してLLM分析"""
+    if not items:
+        return []
+
+    batch_size = 18
+    all_updates = []
+    total_batches = (len(items) + batch_size - 1) // batch_size
+
+    for bi in range(total_batches):
+        start = bi * batch_size
+        chunk = items[start:start + batch_size]
+        print("[INFO] バッチ " + str(bi + 1) + "/" + str(total_batches)
+              + " (" + str(len(chunk)) + "件)")
+        try:
+            res = analyze_batch(chunk, start)
+            all_updates.extend(res)
+            print("[OK] バッチ" + str(bi + 1) + ": " + str(len(res)) + "件抽出")
+        except Exception as e:
+            print("[WARN] バッチ" + str(bi + 1) + "失敗: " + str(e)[:100])
+
+        if bi < total_batches - 1:
+            time.sleep(12)
+
+    print("[OK] 有効な更新: " + str(len(all_updates)) + "件")
+    return all_updates
 
 
 def build_monthly_summary(monthly_records):
