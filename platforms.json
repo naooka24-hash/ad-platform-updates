@@ -12,8 +12,7 @@
       "name": "Google Marketing Platform",
       "category": "DV360/SA360/CM360",
       "sources": [
-        { "type": "rss", "url": "https://blog.google/products/marketingplatform/rss/" },
-        { "type": "rss", "url": "https://developers.googleblog.com/feeds/posts/default?alt=rss" }
+        { "type": "rss", "url": "https://blog.google/products/marketingplatform/rss/" }
       ]
     },
     {
@@ -21,14 +20,14 @@
       "category": "SNS",
       "sources": [
         { "type": "rss", "url": "https://engineering.fb.com/feed/" },
-        { "type": "html", "url": "https://www.facebook.com/business/news", "selector": "main" }
+        { "type": "rss", "url": "https://developers.facebook.com/blog/feed/" }
       ]
     },
     {
       "name": "Yahoo!広告",
       "category": "国内",
       "sources": [
-        { "type": "html", "url": "https://ads-help.yahoo.co.jp/yahooads/guideline/articledetail", "selector": "main" },
+        { "type": "html", "url": "https://ads-help.yahoo.co.jp/yahooads/ss/articledetail?lan=ja&aid=50246", "selector": "main" },
         { "type": "html", "url": "https://marketing.yahoo.co.jp/news/", "selector": "main, .newsList, .p-newsList" }
       ]
     },
@@ -43,8 +42,7 @@
       "name": "TikTok for Business",
       "category": "SNS",
       "sources": [
-        { "type": "rss", "url": "https://newsroom.tiktok.com/en-us/rss.xml" },
-        { "type": "html", "url": "https://www.tiktok.com/business/en/blog", "selector": "main" }
+        { "type": "rss", "url": "https://newsroom.tiktok.com/en-us/rss.xml" }
       ]
     },
     {
@@ -72,8 +70,7 @@
       "name": "Amazon Ads",
       "category": "リテールメディア",
       "sources": [
-        { "type": "html", "url": "https://advertising.amazon.com/blog", "selector": "main" },
-        { "type": "html", "url": "https://advertising.amazon.com/ja-jp/blog", "selector": "main" }
+        { "type": "html", "url": "https://advertising.amazon.com/blog", "selector": "main" }
       ]
     },
     {
@@ -120,13 +117,6 @@
       ]
     },
     {
-      "name": "Logicad",
-      "category": "国内DSP",
-      "sources": [
-        { "type": "html", "url": "https://www.sonet-media.jp/news/", "selector": "main, .news" }
-      ]
-    },
-    {
       "name": "popIn",
       "category": "国内ネイティブ",
       "sources": [
@@ -145,13 +135,6 @@
       "category": "CTV",
       "sources": [
         { "type": "html", "url": "https://about.netflix.com/en/newsroom", "selector": "main" }
-      ]
-    },
-    {
-      "name": "TVer",
-      "category": "CTV",
-      "sources": [
-        { "type": "html", "url": "https://tver.co.jp/info", "selector": "main" }
       ]
     },
     {
