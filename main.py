@@ -134,14 +134,38 @@ def save_history(history):
         return False
 
 
-def http_get(url, timeout=25):
-    req = urllib.request.Request(url, headers={
-        "User-Agent": UA,
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "ja,en-US;q=0.9,en;q=0.8",
-    })
-    with urllib.request.urlopen(req, timeout=timeout) as res:
-        return res.read()
+def http_get(url, timeout=25, retries=2):
+    last_error = None
+    for attempt in range(retries + 1):
+        try:
+            req = urllib.request.Request(url, headers={
+                "User-Agent": UA,
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,"
+                          "image/avif,image/webp,*/*;q=0.8",
+                "Accept-Language": "ja,en-US;q=0.9,en;q=0.8",
+                "Accept-Encoding": "identity",
+                "Cache-Control": "no-cache",
+                "Pragma": "no-cache",
+                "Sec-Fetch-Dest": "document",
+                "Sec-Fetch-Mode": "navigate",
+                "Sec-Fetch-Site": "none",
+                "Upgrade-Insecure-Requests": "1",
+            })
+            with urllib.request.urlopen(req, timeout=timeout) as res:
+                return res.read()
+        except urllib.error.HTTPError as e:
+            last_error = e
+            if e.code in (403, 429) and attempt < retries:
+                time.sleep(3)
+                continue
+            raise
+        except Exception as e:
+            last_error = e
+            if attempt < retries:
+                time.sleep(2)
+                continue
+            raise
+    raise last_error
 
 
 def fetch_rss(url, platform):
@@ -235,12 +259,18 @@ def collect_updates(platforms):
     all_items = []
     ok = 0
     ng = 0
-    failed = []
+    dead_platforms = []
+    error_detail = []
 
     for p in platforms:
         name = p.get("name", "unknown")
+        sources = p.get("sources", [])
         got = 0
-        for src in p.get("sources", []):
+        src_ok = 0
+        src_ng = 0
+        errors = []
+
+        for src in sources:
             stype = src.get("type", "rss")
             url = src.get("url", "")
             if not url:
@@ -252,21 +282,31 @@ def collect_updates(platforms):
                     items = fetch_html(url, name, src.get("selector"))
                 all_items.extend(items)
                 got += len(items)
+                src_ok += 1
                 ok += 1
             except urllib.error.HTTPError as e:
+                src_ng += 1
                 ng += 1
-                failed.append(name)
+                errors.append(stype + ":HTTP" + str(e.code))
                 print("[NG] " + name + " " + stype + ": HTTP " + str(e.code))
             except Exception as e:
+                src_ng += 1
                 ng += 1
-                failed.append(name)
+                errors.append(stype + ":" + type(e).__name__)
                 print("[NG] " + name + " " + stype + ": " + type(e).__name__)
             time.sleep(1)
 
-        print("[OK] " + name + ": " + str(got) + "件")
+        if src_ok == 0 and src_ng > 0:
+            dead_platforms.append(name)
+            error_detail.append(name + " (" + ", ".join(errors) + ")")
+            print("[NG] " + name + ": 全ソース失敗")
+        else:
+            print("[OK] " + name + ": " + str(got) + "件")
 
     print("[INFO] ソース成功 " + str(ok) + " / 失敗 " + str(ng))
-    return all_items, failed
+    if dead_platforms:
+        print("[WARN] 完全失敗: " + ", ".join(dead_platforms))
+    return all_items, dead_platforms, error_detail
 
 def call_llm(prompt, max_tokens=6000):
     api_key = os.environ.get("GROQ_API_KEY", "")
@@ -854,8 +894,12 @@ def main():
 
     print("")
     print("===== 情報収集 =====")
-    raw_items, failed = collect_updates(platforms)
+    raw_items, failed, error_detail = collect_updates(platforms)
     print("[INFO] 候補: " + str(len(raw_items)) + "件")
+    if error_detail:
+        print("[INFO] 接続失敗の詳細:")
+        for e in error_detail:
+            print("       " + e)
 
     new_items = []
     for it in raw_items:
