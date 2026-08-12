@@ -7,6 +7,7 @@ import hashlib
 import smtplib
 import urllib.parse
 import urllib.request
+import urllib.error
 import feedparser
 import requests
 from bs4 import BeautifulSoup
@@ -18,7 +19,7 @@ from datetime import datetime, timedelta, timezone
 
 HISTORY_FILE = "update_history.json"
 HISTORY_DAYS = 400
-MAX_ITEMS_PER_SOURCE = 12
+MAX_ITEMS_PER_SOURCE = 8
 LOOKBACK_HOURS = 168
 JST = timezone(timedelta(hours=9))
 
@@ -252,9 +253,13 @@ def collect_updates(platforms):
                 all_items.extend(items)
                 got += len(items)
                 ok += 1
+            except urllib.error.HTTPError as e:
+                ng += 1
+                failed.append(name)
+                print("[NG] " + name + " " + stype + ": HTTP " + str(e.code))
             except Exception as e:
                 ng += 1
-                failed.append(name + " (" + stype + ")")
+                failed.append(name)
                 print("[NG] " + name + " " + stype + ": " + type(e).__name__)
             time.sleep(1)
 
