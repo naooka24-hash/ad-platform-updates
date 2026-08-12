@@ -1,0 +1,180 @@
+{
+  "platforms": [
+    {
+      "name": "Google Ads",
+      "category": "検索・ディスプレイ",
+      "sources": [
+        { "type": "rss", "url": "https://ads-developers.googleblog.com/feeds/posts/default?alt=rss" },
+        { "type": "html", "url": "https://support.google.com/google-ads/answer/9048695?hl=ja", "selector": "article, .cc, main" }
+      ]
+    },
+    {
+      "name": "Google Marketing Platform",
+      "category": "DV360/SA360/CM360",
+      "sources": [
+        { "type": "rss", "url": "https://blog.google/products/marketingplatform/rss/" },
+        { "type": "html", "url": "https://support.google.com/displayvideo/answer/9061204?hl=en", "selector": "article, main" },
+        { "type": "html", "url": "https://support.google.com/searchads/answer/6293999?hl=en", "selector": "article, main" },
+        { "type": "html", "url": "https://support.google.com/campaignmanager/answer/2839154?hl=en", "selector": "article, main" }
+      ]
+    },
+    {
+      "name": "Meta",
+      "category": "SNS",
+      "sources": [
+        { "type": "rss", "url": "https://developers.facebook.com/blog/feed/" },
+        { "type": "html", "url": "https://developers.facebook.com/docs/graph-api/changelog", "selector": "main, ._4-u2" },
+        { "type": "html", "url": "https://www.facebook.com/business/news", "selector": "main" }
+      ]
+    },
+    {
+      "name": "Yahoo!広告",
+      "category": "国内",
+      "sources": [
+        { "type": "rss", "url": "https://ads-help.yahoo-net.jp/s/rss" },
+        { "type": "html", "url": "https://ads-help.yahoo-net.jp/s/news", "selector": "main, .news-list" }
+      ]
+    },
+    {
+      "name": "LINEヤフー for Business",
+      "category": "国内",
+      "sources": [
+        { "type": "html", "url": "https://www.lycbiz.com/jp/news/", "selector": "main, .newsList" },
+        { "type": "html", "url": "https://www.lycbiz.com/jp/manual/LINEAds/update/", "selector": "main" }
+      ]
+    },
+    {
+      "name": "TikTok for Business",
+      "category": "SNS",
+      "sources": [
+        { "type": "rss", "url": "https://newsroom.tiktok.com/en-us/rss.xml" },
+        { "type": "html", "url": "https://business-api.tiktok.com/portal/docs?id=1740579480076290", "selector": "main" }
+      ]
+    },
+    {
+      "name": "X (Twitter) Ads",
+      "category": "SNS",
+      "sources": [
+        { "type": "html", "url": "https://business.x.com/en/blog.html", "selector": "main" },
+        { "type": "html", "url": "https://devcommunity.x.com/c/advertiser-api/12", "selector": "main" }
+      ]
+    },
+    {
+      "name": "Microsoft Advertising",
+      "category": "検索",
+      "sources": [
+        { "type": "rss", "url": "https://about.ads.microsoft.com/en-us/blog/rss" },
+        { "type": "html", "url": "https://about.ads.microsoft.com/en-us/blog/category/whats-new", "selector": "main" }
+      ]
+    },
+    {
+      "name": "LinkedIn Ads",
+      "category": "B2B",
+      "sources": [
+        { "type": "html", "url": "https://www.linkedin.com/business/marketing/blog", "selector": "main" },
+        { "type": "html", "url": "https://learn.microsoft.com/en-us/linkedin/marketing/versioning", "selector": "main" }
+      ]
+    },
+    {
+      "name": "Amazon Ads",
+      "category": "リテールメディア",
+      "sources": [
+        { "type": "html", "url": "https://advertising.amazon.com/library/news", "selector": "main" },
+        { "type": "html", "url": "https://advertising.amazon.com/API/docs/en-us/release-notes/index", "selector": "main" }
+      ]
+    },
+    {
+      "name": "Pinterest Ads",
+      "category": "SNS",
+      "sources": [
+        { "type": "rss", "url": "https://newsroom.pinterest.com/en/rss.xml" },
+        { "type": "html", "url": "https://developers.pinterest.com/docs/new/whats-new/", "selector": "main" }
+      ]
+    },
+    {
+      "name": "Reddit Ads",
+      "category": "SNS",
+      "sources": [
+        { "type": "html", "url": "https://business.reddithelp.com/s/topic/0TO2Q000000QqAcWAK/product-updates", "selector": "main" },
+        { "type": "html", "url": "https://redditforbusiness.com/blog", "selector": "main" }
+      ]
+    },
+    {
+      "name": "Outbrain",
+      "category": "ネイティブ",
+      "sources": [
+        { "type": "rss", "url": "https://www.outbrain.com/blog/feed/" },
+        { "type": "html", "url": "https://www.outbrain.com/help/advertisers/whats-new/", "selector": "main" }
+      ]
+    },
+    {
+      "name": "Taboola",
+      "category": "ネイティブ",
+      "sources": [
+        { "type": "rss", "url": "https://blog.taboola.com/feed/" },
+        { "type": "html", "url": "https://help.taboola.com/hc/en-us/sections/360003088173", "selector": "main" }
+      ]
+    },
+    {
+      "name": "SmartNews Ads",
+      "category": "国内",
+      "sources": [
+        { "type": "html", "url": "https://ads-help.smartnews.com/hc/ja/sections/360003989273", "selector": "main, .section-tree" },
+        { "type": "html", "url": "https://about.smartnews.com/ja/news/", "selector": "main" }
+      ]
+    },
+    {
+      "name": "LOGLY",
+      "category": "国内ネイティブ",
+      "sources": [
+        { "type": "html", "url": "https://corp.logly.co.jp/news", "selector": "main, .news" }
+      ]
+    },
+    {
+      "name": "Logicad",
+      "category": "国内DSP",
+      "sources": [
+        { "type": "rss", "url": "https://www.logicad.com/feed/" },
+        { "type": "html", "url": "https://www.sonet-media.jp/news/", "selector": "main" }
+      ]
+    },
+    {
+      "name": "popIn",
+      "category": "国内ネイティブ",
+      "sources": [
+        { "type": "html", "url": "https://www.popin.cc/news", "selector": "main, .news" }
+      ]
+    },
+    {
+      "name": "Rakuten Ads",
+      "category": "リテールメディア",
+      "sources": [
+        { "type": "html", "url": "https://ad.rakuten.co.jp/news/", "selector": "main, .news" }
+      ]
+    },
+    {
+      "name": "Netflix Ads",
+      "category": "CTV",
+      "sources": [
+        { "type": "rss", "url": "https://about.netflix.com/en/newsroom/rss" },
+        { "type": "html", "url": "https://www.netflixads.com/insights", "selector": "main" }
+      ]
+    },
+    {
+      "name": "TVer",
+      "category": "CTV",
+      "sources": [
+        { "type": "html", "url": "https://www.tver.co.jp/info/", "selector": "main" },
+        { "type": "html", "url": "https://tver-corp.co.jp/news/", "selector": "main" }
+      ]
+    },
+    {
+      "name": "ABEMA",
+      "category": "CTV",
+      "sources": [
+        { "type": "html", "url": "https://abema-adsales.com/news/", "selector": "main, .news" },
+        { "type": "html", "url": "https://www.cyberagent.co.jp/news/", "selector": "main" }
+      ]
+    }
+  ]
+}
