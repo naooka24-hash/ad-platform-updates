@@ -632,177 +632,180 @@ def group_by_platform(updates):
     return groups
 
 
+SEVERITY_MARK = {
+    "critical": "要対応",
+    "important": "要確認",
+    "info": "参考",
+}
+
+SEVERITY_COLOR = {
+    "critical": "#b91c1c",
+    "important": "#a16207",
+    "info": "#6b7280",
+}
+
+
 def build_email_html(updates, monthly=None, failed_sources=None):
-    today = now_jst().strftime("%Y.%m.%d")
-    weekday = ["月", "火", "水", "木", "金", "土", "日"][now_jst().weekday()]
+    d = now_jst()
+    date_str = d.strftime("%Y年%m月%d日")
+    weekday = ["月", "火", "水", "木", "金", "土", "日"][d.weekday()]
 
     crit = len([u for u in updates if u["severity"] == "critical"])
     imp = len([u for u in updates if u["severity"] == "important"])
-    info = len([u for u in updates if u["severity"] == "info"])
+
+    FONT = ("-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN',"
+            "'Hiragino Sans','Yu Gothic',Meiryo,sans-serif")
 
     p = []
     p.append('<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8">')
     p.append('<meta name="viewport" content="width=device-width,initial-scale=1"></head>')
-    p.append('<body style="margin:0;padding:0;background-color:#f1f5f9;">')
-    p.append('<table role="presentation" width="100%" cellpadding="0" cellspacing="0" '
-             'style="background-color:#f1f5f9;padding:28px 12px;">')
+    p.append('<body style="margin:0;padding:0;background-color:#ffffff;">')
+    p.append('<table role="presentation" width="100%" cellpadding="0" cellspacing="0">')
     p.append('<tr><td align="center">')
     p.append('<table role="presentation" width="100%" cellpadding="0" cellspacing="0" '
-             'style="max-width:660px;font-family:-apple-system,BlinkMacSystemFont,'
-             '\'Segoe UI\',\'Hiragino Sans\',\'Yu Gothic UI\',sans-serif;">')
+             'style="max-width:640px;font-family:' + FONT + ';">')
 
     # ヘッダー
-    p.append('<tr><td style="background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);'
-             'border-radius:14px;padding:32px 30px;">')
-    p.append('<div style="color:#7dd3fc;font-size:10px;font-weight:700;'
-             'letter-spacing:2.5px;margin-bottom:9px;">PLATFORM UPDATES</div>')
-    p.append('<div style="color:#ffffff;font-size:25px;font-weight:800;'
-             'letter-spacing:-0.4px;">広告プラットフォーム更新情報</div>')
-    p.append('<div style="height:1px;background:rgba(255,255,255,0.14);'
-             'margin:17px 0 13px 0;"></div>')
-    p.append('<div style="color:#94b8d8;font-size:12px;">'
-             + today + ' (' + weekday + ')　|　新着 ' + str(len(updates)) + '件</div>')
+    p.append('<tr><td style="padding:46px 34px 0 34px;">')
+    p.append('<div style="border-bottom:2px solid #111111;padding-bottom:17px;">')
+    p.append('<div style="font-size:19px;font-weight:700;color:#111111;'
+             'letter-spacing:0.4px;line-height:1.4;">広告プラットフォーム更新情報</div>')
+    p.append('<div style="font-size:12px;color:#767676;margin-top:9px;">'
+             + date_str + '（' + weekday + '）</div>')
+    p.append('</div>')
     p.append('</td></tr>')
 
-    p.append('<tr><td style="height:16px;"></td></tr>')
-
-    # サマリーバー
-    p.append('<tr><td style="background-color:#ffffff;border-radius:12px;padding:18px 22px;">')
-    p.append('<table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>')
-    for key, count in [("critical", crit), ("important", imp), ("info", info)]:
-        st = SEVERITY_STYLE[key]
-        p.append('<td align="center" style="padding:4px;">')
-        p.append('<div style="color:' + st["text"] + ';font-size:22px;font-weight:800;">'
-                 + str(count) + '</div>')
-        p.append('<div style="color:#94a3b8;font-size:11px;margin-top:3px;">'
-                 + st["label"] + '</div>')
-        p.append('</td>')
-    p.append('</tr></table>')
+    # 件数
+    p.append('<tr><td style="padding:15px 34px 0 34px;">')
+    parts = []
+    if crit:
+        parts.append('要対応 ' + str(crit))
+    if imp:
+        parts.append('要確認 ' + str(imp))
+    parts.append('計 ' + str(len(updates)) + '件')
+    p.append('<div style="font-size:12px;color:#555555;letter-spacing:0.3px;">'
+             + '　/　'.join(parts) + '</div>')
     p.append('</td></tr>')
 
-    p.append('<tr><td style="height:16px;"></td></tr>')
-
-    # プラットフォーム別
+    # 更新一覧
     groups = group_by_platform(updates)
     plat_order = sorted(
         groups.keys(),
-        key=lambda k: min(SEVERITY_ORDER.get(u["severity"], 3) for u in groups[k])
+        key=lambda k: (min(SEVERITY_ORDER.get(u["severity"], 3) for u in groups[k]), k)
     )
 
     for plat in plat_order:
         rows = groups[plat]
 
-        p.append('<tr><td style="padding:6px 4px 10px 4px;">')
-        p.append('<div style="color:#0f172a;font-size:15px;font-weight:800;'
-                 'letter-spacing:0.2px;">' + html.escape(plat)
-                 + ' <span style="color:#94a3b8;font-size:12px;font-weight:600;">('
-                 + str(len(rows)) + ')</span></div>')
-        p.append('</td></tr>')
-
-        for u in rows:
-            st = SEVERITY_STYLE.get(u["severity"], SEVERITY_STYLE["info"])
-
-            p.append('<tr><td style="background-color:#ffffff;border-radius:12px;'
-                     'padding:0;border-left:4px solid ' + st["border"] + ';">')
-            p.append('<table role="presentation" width="100%" cellpadding="0" cellspacing="0">')
-            p.append('<tr><td style="padding:20px 24px;">')
-
-            p.append('<div style="margin-bottom:11px;">')
-            p.append('<span style="display:inline-block;background-color:' + st["badge_bg"]
-                     + ';color:#ffffff;font-size:10px;font-weight:700;padding:3px 10px;'
-                     'border-radius:4px;letter-spacing:0.5px;">' + st["label"] + '</span>')
-            p.append('</div>')
-
-            p.append('<div style="font-size:16px;font-weight:700;color:#0f172a;'
-                     'line-height:1.55;margin-bottom:11px;">'
-                     + html.escape(u["headline"]) + '</div>')
-
-            if u.get("summary"):
-                p.append('<div style="font-size:13.5px;color:#475569;line-height:1.85;'
-                         'margin-bottom:13px;">' + html.escape(u["summary"]) + '</div>')
-
-            if u.get("impact"):
-                p.append('<div style="background-color:' + st["bg"] + ';border-radius:8px;'
-                         'padding:11px 14px;margin-bottom:13px;">')
-                p.append('<div style="font-size:10px;color:' + st["text"] + ';'
-                         'font-weight:700;letter-spacing:1px;margin-bottom:4px;">ACTION</div>')
-                p.append('<div style="font-size:12.5px;color:#334155;line-height:1.7;">'
-                         + html.escape(u["impact"]) + '</div>')
-                p.append('</div>')
-
-            if u.get("link"):
-                p.append('<a href="' + html.escape(u["link"], quote=True)
-                         + '" style="display:inline-block;color:#2563eb;text-decoration:none;'
-                         'font-size:12.5px;font-weight:700;">元記事を確認する &rarr;</a>')
-
-            p.append('</td></tr></table>')
-            p.append('</td></tr>')
-            p.append('<tr><td style="height:10px;"></td></tr>')
-
-        p.append('<tr><td style="height:8px;"></td></tr>')
-
-    # 月次サマリー
-    if monthly:
-        p.append('<tr><td style="height:14px;"></td></tr>')
-        p.append('<tr><td style="background:linear-gradient(135deg,#1e293b 0%,#334155 100%);'
-                 'border-radius:14px;padding:28px 26px;">')
-        p.append('<div style="color:#fbbf24;font-size:10px;font-weight:700;'
-                 'letter-spacing:2px;margin-bottom:8px;">MONTHLY SUMMARY</div>')
-        p.append('<div style="color:#ffffff;font-size:20px;font-weight:800;'
-                 'margin-bottom:18px;">' + now_jst().strftime("%Y年%m月") + ' 総括</div>')
-
-        if monthly.get("overview"):
-            p.append('<div style="color:#cbd5e1;font-size:13px;line-height:1.9;'
-                     'margin-bottom:20px;">' + html.escape(str(monthly["overview"])) + '</div>')
-
-        acts = monthly.get("key_actions", [])
-        if isinstance(acts, list) and acts:
-            p.append('<div style="background-color:rgba(255,255,255,0.07);border-radius:9px;'
-                     'padding:16px 18px;margin-bottom:14px;">')
-            p.append('<div style="color:#fbbf24;font-size:11px;font-weight:700;'
-                     'margin-bottom:10px;letter-spacing:0.5px;">対応が必要な事項</div>')
-            for a in acts[:6]:
-                p.append('<div style="color:#e2e8f0;font-size:12.5px;line-height:1.8;'
-                         'margin-bottom:7px;">・' + html.escape(str(a)) + '</div>')
-            p.append('</div>')
-
-        trends = monthly.get("trends", [])
-        if isinstance(trends, list) and trends:
-            p.append('<div style="background-color:rgba(255,255,255,0.07);border-radius:9px;'
-                     'padding:16px 18px;margin-bottom:14px;">')
-            p.append('<div style="color:#7dd3fc;font-size:11px;font-weight:700;'
-                     'margin-bottom:10px;letter-spacing:0.5px;">今月のトレンド</div>')
-            for t in trends[:5]:
-                p.append('<div style="color:#e2e8f0;font-size:12.5px;line-height:1.8;'
-                         'margin-bottom:7px;">・' + html.escape(str(t)) + '</div>')
-            p.append('</div>')
-
-        if monthly.get("next_month"):
-            p.append('<div style="color:#94a3b8;font-size:12px;line-height:1.8;'
-                     'padding-top:6px;">来月の注目: '
-                     + html.escape(str(monthly["next_month"])) + '</div>')
-
-        p.append('</td></tr>')
-
-    # 取得失敗の通知
-    if failed_sources:
-        p.append('<tr><td style="height:14px;"></td></tr>')
-        p.append('<tr><td style="background-color:#ffffff;border-radius:12px;'
-                 'padding:16px 22px;">')
-        p.append('<div style="color:#94a3b8;font-size:11px;line-height:1.8;">'
-                 '取得できなかったソース: ' + html.escape(", ".join(failed_sources[:12])))
-        if len(failed_sources) > 12:
-            p.append(' ほか' + str(len(failed_sources) - 12) + '件')
+        p.append('<tr><td style="padding:36px 34px 0 34px;">')
+        p.append('<div style="border-top:1px solid #dcdcdc;padding-top:21px;">')
+        p.append('<div style="font-size:11px;font-weight:700;color:#111111;'
+                 'letter-spacing:1.6px;">' + html.escape(plat.upper()) + '</div>')
         p.append('</div>')
         p.append('</td></tr>')
 
+        for n, u in enumerate(rows):
+            mark = SEVERITY_MARK.get(u["severity"], "参考")
+            color = SEVERITY_COLOR.get(u["severity"], "#6b7280")
+            top_pad = "19px" if n == 0 else "27px"
+
+            p.append('<tr><td style="padding:' + top_pad + ' 34px 0 34px;">')
+
+            p.append('<div style="font-size:10px;font-weight:700;color:' + color
+                     + ';letter-spacing:1.1px;margin-bottom:8px;">' + mark + '</div>')
+
+            p.append('<div style="font-size:16px;font-weight:700;color:#111111;'
+                     'line-height:1.6;margin-bottom:10px;">'
+                     + html.escape(u["headline"]) + '</div>')
+
+            if u.get("summary"):
+                p.append('<div style="font-size:13.5px;color:#3c3c3c;line-height:1.95;'
+                         'margin-bottom:12px;">' + html.escape(u["summary"]) + '</div>')
+
+            if u.get("impact"):
+                p.append('<table role="presentation" width="100%" cellpadding="0" '
+                         'cellspacing="0" style="margin-bottom:12px;"><tr>')
+                p.append('<td style="border-left:2px solid #111111;padding:1px 0 1px 13px;">')
+                p.append('<div style="font-size:12.5px;color:#3c3c3c;line-height:1.85;">'
+                         + html.escape(u["impact"]) + '</div>')
+                p.append('</td></tr></table>')
+
+            if u.get("link"):
+                p.append('<a href="' + html.escape(u["link"], quote=True)
+                         + '" style="font-size:12px;color:#111111;'
+                         'text-decoration:underline;">詳細を確認</a>')
+
+            p.append('</td></tr>')
+
+    # 月次サマリー
+    if monthly:
+        p.append('<tr><td style="padding:48px 34px 0 34px;">')
+        p.append('<div style="border-top:2px solid #111111;padding-top:25px;">')
+        p.append('<div style="font-size:10px;font-weight:700;color:#111111;'
+                 'letter-spacing:1.8px;margin-bottom:7px;">MONTHLY REVIEW</div>')
+        p.append('<div style="font-size:17px;font-weight:700;color:#111111;'
+                 'margin-bottom:19px;">' + d.strftime("%Y年%m月") + ' 総括</div>')
+
+        if monthly.get("overview"):
+            p.append('<div style="font-size:13.5px;color:#3c3c3c;line-height:1.95;'
+                     'margin-bottom:26px;">'
+                     + html.escape(str(monthly["overview"])) + '</div>')
+
+        acts = monthly.get("key_actions", [])
+        if isinstance(acts, list) and acts:
+            p.append('<div style="font-size:11px;font-weight:700;color:#111111;'
+                     'letter-spacing:1.1px;margin-bottom:12px;">対応が必要な事項</div>')
+            for a in acts[:6]:
+                p.append('<table role="presentation" width="100%" cellpadding="0" '
+                         'cellspacing="0" style="margin-bottom:10px;"><tr>')
+                p.append('<td width="16" valign="top" style="font-size:13px;'
+                         'color:#999999;line-height:1.85;">—</td>')
+                p.append('<td style="font-size:13px;color:#3c3c3c;line-height:1.85;">'
+                         + html.escape(str(a)) + '</td>')
+                p.append('</tr></table>')
+            p.append('<div style="height:16px;"></div>')
+
+        trends = monthly.get("trends", [])
+        if isinstance(trends, list) and trends:
+            p.append('<div style="font-size:11px;font-weight:700;color:#111111;'
+                     'letter-spacing:1.1px;margin-bottom:12px;">今月のトレンド</div>')
+            for t in trends[:5]:
+                p.append('<table role="presentation" width="100%" cellpadding="0" '
+                         'cellspacing="0" style="margin-bottom:10px;"><tr>')
+                p.append('<td width="16" valign="top" style="font-size:13px;'
+                         'color:#999999;line-height:1.85;">—</td>')
+                p.append('<td style="font-size:13px;color:#3c3c3c;line-height:1.85;">'
+                         + html.escape(str(t)) + '</td>')
+                p.append('</tr></table>')
+            p.append('<div style="height:16px;"></div>')
+
+        if monthly.get("next_month"):
+            p.append('<div style="font-size:12.5px;color:#555555;line-height:1.9;'
+                     'border-top:1px solid #dcdcdc;padding-top:17px;">来月の注目点　'
+                     + html.escape(str(monthly["next_month"])) + '</div>')
+
+        p.append('</div>')
+        p.append('</td></tr>')
+
+    # 接続エラー
+    if failed_sources:
+        p.append('<tr><td style="padding:42px 34px 0 34px;">')
+        p.append('<div style="border-top:1px solid #dcdcdc;padding-top:17px;">')
+        p.append('<div style="font-size:11px;color:#999999;line-height:1.85;">'
+                 '接続できなかったソース　'
+                 + html.escape("、".join(failed_sources[:10])))
+        if len(failed_sources) > 10:
+            p.append(' ほか' + str(len(failed_sources) - 10) + '件')
+        p.append('</div></div>')
+        p.append('</td></tr>')
+
     # フッター
-    p.append('<tr><td style="padding:22px 20px 10px 20px;text-align:center;">')
-    p.append('<div style="height:1px;background-color:#e2e8f0;margin-bottom:16px;"></div>')
-    p.append('<div style="color:#94a3b8;font-size:10.5px;line-height:1.9;">')
+    p.append('<tr><td style="padding:46px 34px 50px 34px;">')
+    p.append('<div style="border-top:1px solid #dcdcdc;padding-top:19px;">')
+    p.append('<div style="font-size:10.5px;color:#999999;line-height:1.9;">')
     p.append('配信済みの更新は再送されません<br>')
-    p.append('<span style="color:#cbd5e1;">Automated by GitHub Actions</span>')
-    p.append('</div>')
+    p.append('GitHub Actions による自動配信')
+    p.append('</div></div>')
     p.append('</td></tr>')
 
     p.append('</table></td></tr></table></body></html>')
