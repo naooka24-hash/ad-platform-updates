@@ -24,6 +24,18 @@
     "headline": "Netflix Adsの利用規約更新",
     "platform": "Netflix Ads",
     "severity": "info"
+   },
+   {
+    "date": "2026-08-13",
+    "headline": "Google Adsのキャンペーンレベルのブロードマッチと自動生成アセットの移行",
+    "platform": "Google Ads",
+    "severity": "important"
+   },
+   {
+    "date": "2026-08-13",
+    "headline": "Campaign Manager 360 APIでレポートデータを照会",
+    "platform": "Google Ads",
+    "severity": "info"
    }
   ]
  },
@@ -70,6 +82,9 @@
   "2340593d90b62f51": {
    "date": "2026-08-12"
   },
+  "23ee3cfff34fa9f0": {
+   "date": "2026-08-13"
+  },
   "23f60a30779125c8": {
    "date": "2026-08-12"
   },
@@ -93,6 +108,9 @@
   },
   "3b5f2541711f768b": {
    "date": "2026-08-12"
+  },
+  "3dcfd486fe0a9e31": {
+   "date": "2026-08-13"
   },
   "3f5b64d170a19d42": {
    "date": "2026-08-12"
@@ -144,6 +162,9 @@
   },
   "75730c6bd0624ce8": {
    "date": "2026-08-12"
+  },
+  "77eaad3c050ce9fa": {
+   "date": "2026-08-13"
   },
   "780bdfd7d47f1f56": {
    "date": "2026-08-12"
@@ -292,6 +313,9 @@
   "d815d358118a5a74": {
    "date": "2026-08-12"
   },
+  "db6ef2cfe6999ef2": {
+   "date": "2026-08-13"
+  },
   "e5d70312c9b10e41": {
    "date": "2026-08-12"
   },
@@ -330,6 +354,9 @@
   },
   "ff2b649b5385c55a": {
    "date": "2026-08-12"
+  },
+  "ffa95ca13128e45b": {
+   "date": "2026-08-13"
   }
  }
 }
