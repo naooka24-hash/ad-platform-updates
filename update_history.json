@@ -42,6 +42,12 @@
     "headline": "Google Adsの言語ターゲティングの変更",
     "platform": "Google Ads",
     "severity": "important"
+   },
+   {
+    "date": "2026-08-18",
+    "headline": "SmartNews Adsに来店計測機能を追加、来店効果を測定",
+    "platform": "SmartNews Ads",
+    "severity": "important"
    }
   ]
  },
@@ -289,6 +295,9 @@
   "bb0fcdcafb655132": {
    "date": "2026-08-12"
   },
+  "bd2909474abe7580": {
+   "date": "2026-08-18"
+  },
   "bda432f8d1e14c0a": {
    "date": "2026-08-12"
   },
@@ -339,6 +348,9 @@
   },
   "e88f449cbed697bf": {
    "date": "2026-08-12"
+  },
+  "e925b4e0cece99d0": {
+   "date": "2026-08-18"
   },
   "e9d1abd500809d6a": {
    "date": "2026-08-12"
