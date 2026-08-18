@@ -19,15 +19,27 @@ from datetime import datetime, timedelta, timezone
 
 HISTORY_FILE = "update_history.json"
 HISTORY_DAYS = 400
-MAX_ITEMS_PER_SOURCE = 8
+MAX_ITEMS_PER_SOURCE = 6
 LOOKBACK_HOURS = 168
 JST = timezone(timedelta(hours=9))
 
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
       "(KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36")
 
-GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
-GROQ_MODELS = ["openai/gpt-oss-120b", "openai/gpt-oss-20b", "qwen/qwen3.6-27b"]
+PROVIDERS = [
+    {
+        "name": "Cerebras",
+        "url": "https://api.cerebras.ai/v1/chat/completions",
+        "key_env": "CEREBRAS_API_KEY",
+        "models": ["gpt-oss-120b", "gemma-4-31b"],
+    },
+    {
+        "name": "Groq",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "key_env": "GROQ_API_KEY",
+        "models": ["openai/gpt-oss-120b", "openai/gpt-oss-20b", "qwen/qwen3.6-27b"],
+    },
+]
 
 NOISE_PATTERNS = [
     r"^(home|top|menu|search|login|sign in|contact|privacy|terms)$",
@@ -308,70 +320,97 @@ def collect_updates(platforms):
         print("[WARN] 完全失敗: " + ", ".join(dead_platforms))
     return all_items, dead_platforms, error_detail
 
-def call_llm(prompt, max_tokens=6000):
-    api_key = os.environ.get("GROQ_API_KEY", "")
-    if not api_key:
-        raise RuntimeError("GROQ_API_KEY が未設定です")
+def call_llm(prompt, max_tokens=4000):
+    """複数プロバイダを順に試行"""
+    last_error = "利用可能なプロバイダがありません"
+    tried = 0
 
-    last_error = None
-    for model in GROQ_MODELS:
-        for attempt in range(3):
-            try:
-                payload = {
-                    "model": model,
-                    "messages": [
-                        {
-                            "role": "system",
-                            "content": "あなたは日本のデジタル広告運用に精通した専門家です。必ず日本語で、指定されたJSON形式のみを出力します。",
+    for prov in PROVIDERS:
+        api_key = os.environ.get(prov["key_env"], "")
+        if not api_key:
+            print("[INFO] " + prov["name"] + " のキー未設定。スキップ")
+            continue
+
+        for model in prov["models"]:
+            for attempt in range(2):
+                tried += 1
+                try:
+                    payload = {
+                        "model": model,
+                        "messages": [
+                            {
+                                "role": "system",
+                                "content": "あなたは日本のデジタル広告運用に精通した専門家です。必ず日本語で、指定されたJSON形式のみを出力します。",
+                            },
+                            {"role": "user", "content": prompt},
+                        ],
+                        "temperature": 0.2,
+                        "max_tokens": max_tokens,
+                        "response_format": {"type": "json_object"},
+                    }
+                    res = requests.post(
+                        prov["url"],
+                        headers={
+                            "Authorization": "Bearer " + api_key,
+                            "Content-Type": "application/json",
                         },
-                        {"role": "user", "content": prompt},
-                    ],
-                    "temperature": 0.2,
-                    "max_tokens": max_tokens,
-                    "response_format": {"type": "json_object"},
-                }
-                res = requests.post(
-                    GROQ_URL,
-                    headers={
-                        "Authorization": "Bearer " + api_key,
-                        "Content-Type": "application/json",
-                    },
-                    json=payload,
-                    timeout=180,
-                )
+                        json=payload,
+                        timeout=180,
+                    )
 
-                if res.status_code == 429:
-                    wait = 45
-                    try:
-                        msg = str(res.json().get("error", {}).get("message", ""))
-                        m = re.search(r"try again in ([\d.]+)s", msg)
-                        if m:
-                            wait = int(float(m.group(1))) + 5
-                    except Exception:
-                        pass
-                    wait = min(max(wait, 30), 120)
-                    print("[WARN] " + model + " 429。" + str(wait) + "秒待機")
-                    time.sleep(wait)
-                    continue
+                    if res.status_code == 404:
+                        print("[WARN] " + prov["name"] + "/" + model
+                              + " モデル未提供。次へ")
+                        break
 
-                if res.status_code in (400, 413):
-                    print("[WARN] " + model + " 入力エラー " + str(res.status_code))
-                    break
+                    if res.status_code == 401:
+                        print("[WARN] " + prov["name"] + " APIキーが無効。次のプロバイダへ")
+                        last_error = prov["name"] + " 認証エラー"
+                        break
 
-                res.raise_for_status()
-                print("[OK] LLM応答: " + model)
-                return res.json()["choices"][0]["message"]["content"]
+                    if res.status_code == 429:
+                        wait = 25
+                        try:
+                            msg = str(res.json().get("error", {}).get("message", ""))
+                            m = re.search(r"try again in ([\d.]+)s", msg)
+                            if m:
+                                wait = int(float(m.group(1))) + 3
+                        except Exception:
+                            pass
+                        wait = min(max(wait, 15), 60)
+                        if attempt == 0:
+                            print("[WARN] " + prov["name"] + "/" + model
+                                  + " 429。" + str(wait) + "秒待機")
+                            time.sleep(wait)
+                            continue
+                        print("[WARN] " + prov["name"] + "/" + model + " 429継続。次へ")
+                        break
 
-            except requests.exceptions.Timeout:
-                last_error = "Timeout"
-                print("[WARN] " + model + " タイムアウト")
-                time.sleep(8)
-            except Exception as e:
-                last_error = str(e)[:120]
-                print("[WARN] " + model + ": " + type(e).__name__)
-                time.sleep(6)
+                    if res.status_code in (400, 413):
+                        detail = ""
+                        try:
+                            detail = str(res.json())[:150]
+                        except Exception:
+                            pass
+                        print("[WARN] " + prov["name"] + "/" + model + " "
+                              + str(res.status_code) + ": " + detail)
+                        break
 
-    raise RuntimeError("LLM失敗: " + str(last_error))
+                    res.raise_for_status()
+                    print("[OK] LLM応答: " + prov["name"] + "/" + model)
+                    return res.json()["choices"][0]["message"]["content"]
+
+                except requests.exceptions.Timeout:
+                    last_error = "Timeout"
+                    print("[WARN] " + prov["name"] + "/" + model + " タイムアウト")
+                    time.sleep(6)
+                except Exception as e:
+                    last_error = str(e)[:150]
+                    print("[WARN] " + prov["name"] + "/" + model + ": "
+                          + type(e).__name__)
+                    time.sleep(5)
+
+    raise RuntimeError("全プロバイダ失敗 (試行" + str(tried) + "回): " + str(last_error))
 
 
 def parse_json_safely(raw):
@@ -404,8 +443,8 @@ def analyze_batch(items, offset):
         blocks.append(
             "ID:" + str(i)
             + "\nP:" + it["platform"]
-            + "\nT:" + it["title"][:120]
-            + "\nB:" + it["body"][:120]
+            + "\nT:" + it["title"][:90]
+            + "\nB:" + it["body"][:90]
         )
     indexed = "\n\n".join(blocks)
 
@@ -490,7 +529,7 @@ def analyze_updates(items):
     if not items:
         return []
 
-    batch_size = 18
+    batch_size = 10
     all_updates = []
     total_batches = (len(items) + batch_size - 1) // batch_size
 
@@ -507,7 +546,7 @@ def analyze_updates(items):
             print("[WARN] バッチ" + str(bi + 1) + "失敗: " + str(e)[:100])
 
         if bi < total_batches - 1:
-            time.sleep(12)
+            time.sleep(18)
 
     print("[OK] 有効な更新: " + str(len(all_updates)) + "件")
     return all_updates
@@ -914,9 +953,9 @@ def main():
 
     print("[INFO] 未配信: " + str(len(new_items)) + "件")
 
-    if len(new_items) > 70:
-        new_items = new_items[:70]
-        print("[INFO] 70件に制限")
+    if len(new_items) > 50:
+        new_items = new_items[:50]
+        print("[INFO] 50件に制限")
 
     month_key = now_jst().strftime("%Y-%m")
     month_end = is_month_end()
