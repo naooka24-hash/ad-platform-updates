@@ -48,6 +48,24 @@
     "headline": "SmartNews Adsに来店計測機能を追加、来店効果を測定",
     "platform": "SmartNews Ads",
     "severity": "important"
+   },
+   {
+    "date": "2026-08-20",
+    "headline": "Google Ads API v25.1 がリリース、機能拡張と変更点あり",
+    "platform": "Google Ads",
+    "severity": "important"
+   },
+   {
+    "date": "2026-08-20",
+    "headline": "LINEヤフー広告がビジネスIDへ統合、設定変更が必要",
+    "platform": "LINEヤフー for Business",
+    "severity": "critical"
+   },
+   {
+    "date": "2026-08-20",
+    "headline": "スマートニュースがトップスロット広告を提供開始",
+    "platform": "SmartNews Ads",
+    "severity": "info"
    }
   ]
  },
@@ -178,8 +196,14 @@
   "682200e173bf94fc": {
    "date": "2026-08-12"
   },
+  "68469696ca46057f": {
+   "date": "2026-08-20"
+  },
   "6c149c3788b7d649": {
    "date": "2026-08-12"
+  },
+  "6f7a4dbfab596f80": {
+   "date": "2026-08-20"
   },
   "70ca4353cdd757b7": {
    "date": "2026-08-12"
@@ -256,6 +280,9 @@
   "a76c6b24827c3442": {
    "date": "2026-08-12"
   },
+  "a86c639059b60b67": {
+   "date": "2026-08-20"
+  },
   "a8c36bef1b7b8a8e": {
    "date": "2026-08-12"
   },
@@ -295,6 +322,9 @@
   "b78a40458499d732": {
    "date": "2026-08-12"
   },
+  "b8906850bd3fcea2": {
+   "date": "2026-08-20"
+  },
   "b937115c6afcafa8": {
    "date": "2026-08-12"
   },
@@ -309,6 +339,9 @@
   },
   "be089fbb460b36d7": {
    "date": "2026-08-12"
+  },
+  "bf1c5f23d7f676c7": {
+   "date": "2026-08-20"
   },
   "c1204d5294ba92db": {
    "date": "2026-08-12"
