@@ -66,6 +66,18 @@
     "headline": "スマートニュースがトップスロット広告を提供開始",
     "platform": "SmartNews Ads",
     "severity": "info"
+   },
+   {
+    "date": "2026-08-21",
+    "headline": "AI Maxの新機能でA/Bテストと予算プランナーを導入",
+    "platform": "Google Ads",
+    "severity": "important"
+   },
+   {
+    "date": "2026-08-21",
+    "headline": "LINEヤフー広告のシステムメンテナンス実施予定",
+    "platform": "LINEヤフー for Business",
+    "severity": "important"
    }
   ]
  },
@@ -96,6 +108,9 @@
   },
   "18b88f8f2b97c06e": {
    "date": "2026-08-12"
+  },
+  "18baea1422786cd9": {
+   "date": "2026-08-21"
   },
   "1b8cdba2914560ce": {
    "date": "2026-08-12"
@@ -369,6 +384,9 @@
   },
   "d2981ffb6210cca5": {
    "date": "2026-08-12"
+  },
+  "d2b3dd86ccbe3997": {
+   "date": "2026-08-21"
   },
   "d2e5b1f760f9614d": {
    "date": "2026-08-19"
