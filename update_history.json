@@ -84,6 +84,24 @@
     "headline": "Google Ads API Assistant v4.0.0 がリリース",
     "platform": "Google Ads",
     "severity": "important"
+   },
+   {
+    "date": "2026-08-28",
+    "headline": "Display & Video 360 APIと構造化データファイルの変更（2026年10月）",
+    "platform": "Google Ads",
+    "severity": "important"
+   },
+   {
+    "date": "2026-08-28",
+    "headline": "2026年8月のDemand Gen Dropで新しいリード獲得手法を提供",
+    "platform": "Google Ads",
+    "severity": "important"
+   },
+   {
+    "date": "2026-08-28",
+    "headline": "Microsoft AdvertisingのAI Maxで検索キャンペーンをAI最適化",
+    "platform": "Microsoft Advertising",
+    "severity": "important"
    }
   ]
  },
@@ -118,6 +136,9 @@
   "153e34e989844bdf": {
    "date": "2026-08-12"
   },
+  "159717451ec462ba": {
+   "date": "2026-08-28"
+  },
   "18b88f8f2b97c06e": {
    "date": "2026-08-12"
   },
@@ -132,6 +153,9 @@
   },
   "1cc891e64c38cb32": {
    "date": "2026-08-25"
+  },
+  "1cff6ddff4a098f2": {
+   "date": "2026-08-28"
   },
   "1e965f06f414df14": {
    "date": "2026-08-12"
@@ -159,6 +183,9 @@
   },
   "277b29b1861cae88": {
    "date": "2026-08-27"
+  },
+  "27f59e355071f16d": {
+   "date": "2026-08-28"
   },
   "28ba6c39b73f46dc": {
    "date": "2026-08-12"
@@ -223,6 +250,9 @@
   "5dadb7181458bc11": {
    "date": "2026-08-12"
   },
+  "60c13da741d92c10": {
+   "date": "2026-08-28"
+  },
   "61a3bf5c4b7c79ad": {
    "date": "2026-08-12"
   },
@@ -268,6 +298,9 @@
   "75730c6bd0624ce8": {
    "date": "2026-08-12"
   },
+  "772d7b078e69e081": {
+   "date": "2026-08-28"
+  },
   "77eaad3c050ce9fa": {
    "date": "2026-08-13"
   },
@@ -300,6 +333,9 @@
   },
   "8cbd900e69927209": {
    "date": "2026-08-12"
+  },
+  "8f9130cfe318c59c": {
+   "date": "2026-08-28"
   },
   "905ccbddc93111eb": {
    "date": "2026-08-12"
