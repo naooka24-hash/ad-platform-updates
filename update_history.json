@@ -103,6 +103,20 @@
     "platform": "Microsoft Advertising",
     "severity": "important"
    }
+  ],
+  "2026-09": [
+   {
+    "date": "2026-09-01",
+    "headline": "Google Ads 開発者ポリシーを改訂し、セキュリティ強化を実施",
+    "platform": "Google Ads",
+    "severity": "important"
+   },
+   {
+    "date": "2026-09-01",
+    "headline": "Microsoft Advertising AI Max導入で検索広告を自動最適化",
+    "platform": "Microsoft Advertising",
+    "severity": "important"
+   }
   ]
  },
  "seen": {
@@ -121,6 +135,9 @@
   "0a46a8fd1b14a29f": {
    "date": "2026-08-19"
   },
+  "0a5d530009cffda7": {
+   "date": "2026-09-01"
+  },
   "11be15af1a0b565b": {
    "date": "2026-08-24"
   },
@@ -136,8 +153,14 @@
   "153e34e989844bdf": {
    "date": "2026-08-12"
   },
+  "1555eb79ce554535": {
+   "date": "2026-09-01"
+  },
   "159717451ec462ba": {
    "date": "2026-08-28"
+  },
+  "164f0f00df59864f": {
+   "date": "2026-09-01"
   },
   "18b88f8f2b97c06e": {
    "date": "2026-08-12"
@@ -258,6 +281,9 @@
   },
   "62fc1c82fe36fbfb": {
    "date": "2026-08-12"
+  },
+  "6301c5552bb71516": {
+   "date": "2026-09-01"
   },
   "63abfa70a03ce5ea": {
    "date": "2026-08-12"
@@ -496,6 +522,9 @@
   "dfea109d854bfb98": {
    "date": "2026-08-27"
   },
+  "e24d4690839fda8a": {
+   "date": "2026-09-01"
+  },
   "e5d70312c9b10e41": {
    "date": "2026-08-12"
   },
@@ -519,6 +548,9 @@
   },
   "eea58b709d1e0d44": {
    "date": "2026-08-12"
+  },
+  "eeb5a964e5268c31": {
+   "date": "2026-09-01"
   },
   "f0c0815b6a27d665": {
    "date": "2026-08-12"
