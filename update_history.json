@@ -122,6 +122,18 @@
     "headline": "Google Ads API v22 が2026年10月7日に廃止予定です",
     "platform": "Google Ads",
     "severity": "critical"
+   },
+   {
+    "date": "2026-09-04",
+    "headline": "LINEヤフー広告 システムメンテナンス実施（2026/9/2-3）",
+    "platform": "LINEヤフー for Business",
+    "severity": "important"
+   },
+   {
+    "date": "2026-09-04",
+    "headline": "LINEヤフー「Agent i」AI対話文脈広告配信を拡大",
+    "platform": "LINEヤフー for Business",
+    "severity": "important"
    }
   ]
  },
@@ -143,6 +155,9 @@
   },
   "0a5d530009cffda7": {
    "date": "2026-09-01"
+  },
+  "0b423d117d194b48": {
+   "date": "2026-09-04"
   },
   "11be15af1a0b565b": {
    "date": "2026-08-24"
@@ -260,6 +275,9 @@
   },
   "46f808101162c40f": {
    "date": "2026-08-12"
+  },
+  "495cea233c12759e": {
+   "date": "2026-09-04"
   },
   "4a3079e73b73a2a5": {
    "date": "2026-08-17"
@@ -525,6 +543,9 @@
   "ce49fbffc35bab18": {
    "date": "2026-08-12"
   },
+  "d02c9349175be1cb": {
+   "date": "2026-09-04"
+  },
   "d2981ffb6210cca5": {
    "date": "2026-08-12"
   },
@@ -563,6 +584,9 @@
   },
   "e5d70312c9b10e41": {
    "date": "2026-08-12"
+  },
+  "e6072ca26d58c4b2": {
+   "date": "2026-09-04"
   },
   "e88f449cbed697bf": {
    "date": "2026-08-12"
