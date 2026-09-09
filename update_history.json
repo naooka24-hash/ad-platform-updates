@@ -134,6 +134,12 @@
     "headline": "LINEヤフー「Agent i」AI対話文脈広告配信を拡大",
     "platform": "LINEヤフー for Business",
     "severity": "important"
+   },
+   {
+    "date": "2026-09-09",
+    "headline": "LINEビューティープラスがヘアサロン向けに提供開始",
+    "platform": "LINEヤフー for Business",
+    "severity": "important"
    }
   ]
  },
@@ -279,6 +285,9 @@
   "463da950898039d0": {
    "date": "2026-08-17"
   },
+  "46709db09caf83de": {
+   "date": "2026-09-09"
+  },
   "46f808101162c40f": {
    "date": "2026-08-12"
   },
@@ -302,6 +311,9 @@
   },
   "4f38d9b19366e953": {
    "date": "2026-08-12"
+  },
+  "53fc33ba3367a65d": {
+   "date": "2026-09-09"
   },
   "54aebc32e344cc28": {
    "date": "2026-08-12"
@@ -602,6 +614,9 @@
   },
   "e6072ca26d58c4b2": {
    "date": "2026-09-04"
+  },
+  "e824851f086ef3bc": {
+   "date": "2026-09-09"
   },
   "e88f449cbed697bf": {
    "date": "2026-08-12"
