@@ -152,6 +152,18 @@
     "headline": "LINEヤフー広告 システムメンテナンス完了（2026/9/17）",
     "platform": "LINEヤフー for Business",
     "severity": "info"
+   },
+   {
+    "date": "2026-09-24",
+    "headline": "Google Ads API v25.2 がリリース、機能拡張と変更点あり",
+    "platform": "Google Ads",
+    "severity": "important"
+   },
+   {
+    "date": "2026-09-24",
+    "headline": "AI Max キャンペーン向け新レポート機能と多言語対応を開始",
+    "platform": "Google Ads",
+    "severity": "info"
    }
   ]
  },
@@ -573,6 +585,9 @@
   "b43fd33ce6a281aa": {
    "date": "2026-08-12"
   },
+  "b47937771baabd84": {
+   "date": "2026-09-24"
+  },
   "b48d6c876c17a93c": {
    "date": "2026-08-12"
   },
@@ -750,6 +765,9 @@
   "eeb5a964e5268c31": {
    "date": "2026-09-01"
   },
+  "eed536b3ea045de6": {
+   "date": "2026-09-24"
+  },
   "f0c0815b6a27d665": {
    "date": "2026-08-12"
   },
@@ -761,6 +779,9 @@
   },
   "f33eea00f1a6923d": {
    "date": "2026-08-12"
+  },
+  "f3fd3e7b94377e21": {
+   "date": "2026-09-24"
   },
   "f6a652575ef6f467": {
    "date": "2026-08-12"
