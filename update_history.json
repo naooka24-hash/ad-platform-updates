@@ -170,6 +170,12 @@
     "headline": "LINE広告の機能停止と配信終了スケジュールのお知らせ",
     "platform": "LINEヤフー for Business",
     "severity": "critical"
+   },
+   {
+    "date": "2026-09-29",
+    "headline": "Display & Video 360で縦型動画広告を一元管理できるように",
+    "platform": "Google Marketing Platform",
+    "severity": "important"
    }
   ]
  },
@@ -513,6 +519,9 @@
   "9673a8dda9bce506": {
    "date": "2026-09-10"
   },
+  "972e709426cb21b2": {
+   "date": "2026-09-29"
+  },
   "97c7f73db1f4aa2a": {
    "date": "2026-08-12"
   },
@@ -674,6 +683,9 @@
   },
   "c65c73482ced502d": {
    "date": "2026-09-15"
+  },
+  "c7aa79b8a9635811": {
+   "date": "2026-09-29"
   },
   "c7ab6029051cee70": {
    "date": "2026-08-12"
