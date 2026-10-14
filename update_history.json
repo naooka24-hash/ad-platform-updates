@@ -214,6 +214,18 @@
     "headline": "Google Ads APIのリリーススケジュールが月次へ変更、2026‑2027年のサンセット予定を発表",
     "platform": "Google Ads",
     "severity": "important"
+   },
+   {
+    "date": "2026-10-14",
+    "headline": "YouTube 10月Demand Genドロップで測定精度とROIを向上",
+    "platform": "Google Ads",
+    "severity": "important"
+   },
+   {
+    "date": "2026-10-14",
+    "headline": "Metaの生成広告モデルGEMが拡張、配信最適化を支援",
+    "platform": "Meta",
+    "severity": "important"
    }
   ]
  },
@@ -539,6 +551,9 @@
   "747c5fc46c1bc082": {
    "date": "2026-10-01"
   },
+  "751a96c1ddd688b4": {
+   "date": "2026-10-14"
+  },
   "75730c6bd0624ce8": {
    "date": "2026-08-12"
   },
@@ -638,6 +653,9 @@
   "97c7f73db1f4aa2a": {
    "date": "2026-08-12"
   },
+  "97d2458fd9fb0084": {
+   "date": "2026-10-14"
+  },
   "989cda3c32606d21": {
    "date": "2026-08-12"
   },
@@ -709,6 +727,9 @@
   },
   "ac57ebf3c3922399": {
    "date": "2026-09-17"
+  },
+  "b1226f39fb7f19d1": {
+   "date": "2026-10-14"
   },
   "b1cb5744ebcf3894": {
    "date": "2026-09-23"
@@ -952,6 +973,9 @@
   },
   "f6a652575ef6f467": {
    "date": "2026-08-12"
+  },
+  "f6bfd97a35d0c922": {
+   "date": "2026-10-14"
   },
   "f866fd6723ce3693": {
    "date": "2026-09-02"
