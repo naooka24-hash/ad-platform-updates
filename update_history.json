@@ -256,6 +256,18 @@
     "headline": "広告クリエイティブごとに対象オーディエンスを選択可能にする機能",
     "platform": "Meta",
     "severity": "important"
+   },
+   {
+    "date": "2026-10-21",
+    "headline": "Google広告の金融詐欺対策強化に関するポリシー変更",
+    "platform": "Google Ads",
+    "severity": "important"
+   },
+   {
+    "date": "2026-10-21",
+    "headline": "Reddit広告のキャンペーン計画・最適化ツールを新規追加",
+    "platform": "Reddit Ads",
+    "severity": "info"
    }
   ]
  },
@@ -413,6 +425,9 @@
   "28ba6c39b73f46dc": {
    "date": "2026-08-12"
   },
+  "29cc8ab78456bb2d": {
+   "date": "2026-10-21"
+  },
   "2ae589aecee13316": {
    "date": "2026-08-12"
   },
@@ -514,6 +529,9 @@
   },
   "4dcc3cba05a8a124": {
    "date": "2026-08-12"
+  },
+  "4e00bcb22547c32b": {
+   "date": "2026-10-21"
   },
   "4f38d9b19366e953": {
    "date": "2026-08-12"
@@ -733,6 +751,9 @@
   },
   "995b3b4f33a889d6": {
    "date": "2026-09-11"
+  },
+  "9c6aee04fe1cce72": {
+   "date": "2026-10-21"
   },
   "9d11ff433c1dd174": {
    "date": "2026-08-12"
