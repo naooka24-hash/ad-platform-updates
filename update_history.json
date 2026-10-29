@@ -304,6 +304,18 @@
     "headline": "LINEヤフー、法人向けAIエージェント「Agent i Biz」提供開始",
     "platform": "LINEヤフー for Business",
     "severity": "important"
+   },
+   {
+    "date": "2026-10-29",
+    "headline": "Meta Andromedaで次世代広告配信を強化へ",
+    "platform": "Meta",
+    "severity": "info"
+   },
+   {
+    "date": "2026-10-29",
+    "headline": "Microsoft AdvertisingにAI活用機能を追加",
+    "platform": "Microsoft Advertising",
+    "severity": "important"
    }
   ]
  },
@@ -316,6 +328,9 @@
   },
   "015c20eb492e80a1": {
    "date": "2026-10-22"
+  },
+  "01f333bfc8b72ddd": {
+   "date": "2026-10-29"
   },
   "055a27d500112ef3": {
    "date": "2026-10-05"
@@ -548,6 +563,9 @@
   "3fd9369c144307cf": {
    "date": "2026-10-02"
   },
+  "4240df7dfe2b2e74": {
+   "date": "2026-10-29"
+  },
   "429bd8f436bcf411": {
    "date": "2026-09-11"
   },
@@ -619,6 +637,9 @@
   },
   "54b52dd506b05e45": {
    "date": "2026-10-01"
+  },
+  "553947f0988bafc3": {
+   "date": "2026-10-29"
   },
   "577d7b730931bc53": {
    "date": "2026-10-16"
@@ -829,6 +850,9 @@
   },
   "97d2458fd9fb0084": {
    "date": "2026-10-14"
+  },
+  "97faae47a4868be9": {
+   "date": "2026-10-29"
   },
   "989cda3c32606d21": {
    "date": "2026-08-12"
@@ -1219,6 +1243,9 @@
   },
   "f896c689afb681c0": {
    "date": "2026-09-22"
+  },
+  "f8bb3292e04ddcb9": {
+   "date": "2026-10-29"
   },
   "f992a6d583ace15d": {
    "date": "2026-08-12"
