@@ -330,6 +330,24 @@
     "headline": "SmartNews Ads のセキュリティ対応と一部機能復旧のお知らせ",
     "platform": "SmartNews Ads",
     "severity": "important"
+   },
+   {
+    "date": "2026-11-05",
+    "headline": "Data Manager APIが通話コンバージョンと行レベル診断に対応",
+    "platform": "Google Ads",
+    "severity": "important"
+   },
+   {
+    "date": "2026-11-05",
+    "headline": "Google Ads APIでマルチパーティ承認が必須に変更",
+    "platform": "Google Ads",
+    "severity": "critical"
+   },
+   {
+    "date": "2026-11-05",
+    "headline": "Meta Graph API v27.0 と Marketing API v27.0 がリリース",
+    "platform": "Meta",
+    "severity": "important"
    }
   ]
  },
@@ -345,6 +363,9 @@
   },
   "01f333bfc8b72ddd": {
    "date": "2026-10-29"
+  },
+  "0492a0588ab9a2ba": {
+   "date": "2026-11-05"
   },
   "04c54b2ccb2e14db": {
    "date": "2026-11-02"
@@ -631,6 +652,9 @@
   "4b9e793b847bdc87": {
    "date": "2026-08-27"
   },
+  "4bc7ee1b830e7d97": {
+   "date": "2026-11-05"
+  },
   "4dcc3cba05a8a124": {
    "date": "2026-08-12"
   },
@@ -699,6 +723,9 @@
   },
   "63abfa70a03ce5ea": {
    "date": "2026-08-12"
+  },
+  "64204cf97ff725b0": {
+   "date": "2026-11-05"
   },
   "6482cedf2be9e53e": {
    "date": "2026-08-12"
@@ -1105,8 +1132,14 @@
   "c7ab6029051cee70": {
    "date": "2026-08-12"
   },
+  "c81bb74cc417f2c6": {
+   "date": "2026-11-05"
+  },
   "c867afd7c64b0422": {
    "date": "2026-08-12"
+  },
+  "c953fa59fdcc6fa8": {
+   "date": "2026-11-05"
   },
   "c9da0edb92a57a25": {
    "date": "2026-09-21"
@@ -1152,6 +1185,9 @@
   },
   "d36e84867b5befdd": {
    "date": "2026-08-12"
+  },
+  "d51057d2b140333b": {
+   "date": "2026-11-05"
   },
   "d64b87aac97f043d": {
    "date": "2026-10-20"
@@ -1228,6 +1264,9 @@
   "e925b4e0cece99d0": {
    "date": "2026-08-18"
   },
+  "e97f1ee2ba630a2b": {
+   "date": "2026-11-05"
+  },
   "e9d1abd500809d6a": {
    "date": "2026-08-12"
   },
@@ -1293,6 +1332,9 @@
   },
   "f3fd3e7b94377e21": {
    "date": "2026-09-24"
+  },
+  "f4168565234ecda9": {
+   "date": "2026-11-05"
   },
   "f611a90c5d259ee4": {
    "date": "2026-10-16"
