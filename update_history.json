@@ -348,6 +348,12 @@
     "headline": "Meta Graph API v27.0 と Marketing API v27.0 がリリース",
     "platform": "Meta",
     "severity": "important"
+   },
+   {
+    "date": "2026-11-06",
+    "headline": "LOGLY Ads Context に新配信ロジック「Insight Match」導入",
+    "platform": "LOGLY",
+    "severity": "important"
    }
   ]
  },
@@ -444,6 +450,9 @@
   },
   "159717451ec462ba": {
    "date": "2026-08-28"
+  },
+  "1634d86885c141e6": {
+   "date": "2026-11-06"
   },
   "164f0f00df59864f": {
    "date": "2026-09-01"
@@ -748,6 +757,9 @@
   "690852816cd3bb3e": {
    "date": "2026-08-27"
   },
+  "69e0a49be76cee60": {
+   "date": "2026-11-06"
+  },
   "6a561af3a6cfdef3": {
    "date": "2026-09-08"
   },
@@ -847,6 +859,9 @@
   "82e32633b97c2929": {
    "date": "2026-09-17"
   },
+  "84be04df75c67dd6": {
+   "date": "2026-11-06"
+  },
   "8720a7b93af89400": {
    "date": "2026-08-25"
   },
@@ -942,6 +957,9 @@
   },
   "9eeb9cf646eafbc3": {
    "date": "2026-08-12"
+  },
+  "9f5f5409df67fb17": {
+   "date": "2026-11-06"
   },
   "9f670948a6a64554": {
    "date": "2026-08-12"
