@@ -378,6 +378,18 @@
     "headline": "Microsoft AdvertisingのPrisma連携が配信レポートと請求書対応に拡張",
     "platform": "Microsoft Advertising",
     "severity": "important"
+   },
+   {
+    "date": "2026-11-13",
+    "headline": "Google Adsで無効トラフィック概要カードを新導入",
+    "platform": "Google Ads",
+    "severity": "important"
+   },
+   {
+    "date": "2026-11-13",
+    "headline": "Microsoft AdvertisingがXBOX Video for Brandsを提供開始",
+    "platform": "Microsoft Advertising",
+    "severity": "info"
    }
   ]
  },
@@ -531,6 +543,9 @@
   },
   "1eafd490dea4e693": {
    "date": "2026-08-12"
+  },
+  "2169166c81157995": {
+   "date": "2026-11-13"
   },
   "220a2e1c6191e180": {
    "date": "2026-11-11"
@@ -736,6 +751,9 @@
   "53fc33ba3367a65d": {
    "date": "2026-09-09"
   },
+  "545d861ae1284df0": {
+   "date": "2026-11-13"
+  },
   "54897cc52e4c8308": {
    "date": "2026-09-18"
   },
@@ -900,6 +918,9 @@
   },
   "7b7fc613d43e4b88": {
    "date": "2026-10-07"
+  },
+  "7d44dcfe5299a6ef": {
+   "date": "2026-11-13"
   },
   "7e5ed1f6d8665eb5": {
    "date": "2026-09-02"
@@ -1162,6 +1183,9 @@
   "bd3228f404237ee7": {
    "date": "2026-11-02"
   },
+  "bd73855fc79761de": {
+   "date": "2026-11-13"
+  },
   "bda432f8d1e14c0a": {
    "date": "2026-08-12"
   },
@@ -1309,6 +1333,9 @@
   "dd16e75198962746": {
    "date": "2026-09-03"
   },
+  "de20dbfbb6b09039": {
+   "date": "2026-11-13"
+  },
   "deb98dfdd6ceb6cb": {
    "date": "2026-10-07"
   },
@@ -1449,6 +1476,9 @@
   },
   "f6bfd97a35d0c922": {
    "date": "2026-10-14"
+  },
+  "f83ea4688b5d8ff9": {
+   "date": "2026-11-13"
   },
   "f866fd6723ce3693": {
    "date": "2026-09-02"
