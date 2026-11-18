@@ -390,6 +390,12 @@
     "headline": "Microsoft AdvertisingがXBOX Video for Brandsを提供開始",
     "platform": "Microsoft Advertising",
     "severity": "info"
+   },
+   {
+    "date": "2026-11-18",
+    "headline": "ビジネスマネージャー商品管理で動的ディスプレイ広告が配信可能に",
+    "platform": "LINEヤフー for Business",
+    "severity": "important"
    }
   ]
  },
@@ -658,6 +664,9 @@
   "3b655ef3f8d24eea": {
    "date": "2026-10-15"
   },
+  "3d868ab9e8b03e47": {
+   "date": "2026-11-18"
+  },
   "3db2173fdd79f4c1": {
    "date": "2026-10-16"
   },
@@ -861,6 +870,9 @@
   },
   "6f1660ac2e66e9d8": {
    "date": "2026-11-17"
+  },
+  "6f24fa2108067d6c": {
+   "date": "2026-11-18"
   },
   "6f7a4dbfab596f80": {
    "date": "2026-08-20"
@@ -1119,6 +1131,9 @@
   },
   "ac20270bef527aee": {
    "date": "2026-08-12"
+  },
+  "ac5689ee8768b0cb": {
+   "date": "2026-11-18"
   },
   "ac57ebf3c3922399": {
    "date": "2026-09-17"
